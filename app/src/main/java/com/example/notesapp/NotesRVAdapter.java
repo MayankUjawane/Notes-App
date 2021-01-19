@@ -24,7 +24,7 @@ public class NotesRVAdapter extends RecyclerView.Adapter<NotesRVAdapter.NoteView
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_item, parent, false);
         NoteViewHolder viewHolder = new NoteViewHolder(view);
-        viewHolder.delete.setOnClickListener(new View.OnClickListener() {
+        viewHolder.iv_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.onItemClicked(allNotes.get(viewHolder.getAdapterPosition()));
@@ -37,7 +37,7 @@ public class NotesRVAdapter extends RecyclerView.Adapter<NotesRVAdapter.NoteView
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
         Note currentNote = allNotes.get(position);
-        holder.items.setText(currentNote.getNotes());
+        holder.tv_items.setText(currentNote.getNotes());
 
     }
 
@@ -54,13 +54,13 @@ public class NotesRVAdapter extends RecyclerView.Adapter<NotesRVAdapter.NoteView
     }
 
     public class NoteViewHolder extends RecyclerView.ViewHolder {
-        TextView items;
-        ImageView delete;
+        TextView tv_items;
+        ImageView iv_delete;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
-            items = itemView.findViewById(R.id.tv_items);
-            delete = itemView.findViewById(R.id.iv_delete);
+            tv_items = itemView.findViewById(R.id.tv_items);
+            iv_delete = itemView.findViewById(R.id.iv_delete);
         }
     }
 }

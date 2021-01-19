@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Application;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -17,7 +16,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements OnClickAdapter {
 
-    Application application;
     NoteViewModel viewModel;
     TextView inputText;
 
@@ -31,8 +29,14 @@ public class MainActivity extends AppCompatActivity implements OnClickAdapter {
         NotesRVAdapter adapter = new NotesRVAdapter(this);
         recyclerView.setAdapter(adapter);
 
-        viewModel = new ViewModelProvider(this).get(NoteViewModel.class);
-        viewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
+        viewModel = new ViewModelProvider(this, getDefaultViewModelProviderFactory()).get(NoteViewModel.class);
+
+       // viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(application)).get(NoteViewModel.class);
+
+       // viewModel = requireActivity().run {  ViewModelProvider(this, ViewModelFactory(ItemListUseCase())).get(NoteViewModel.class);
+
+
+            viewModel.getAllNotes().observe(this, new Observer<List<Note>>() {
             @Override
             public void onChanged(List<Note> notes) {
                 adapter.updateData((ArrayList<Note>) notes);
@@ -54,5 +58,6 @@ public class MainActivity extends AppCompatActivity implements OnClickAdapter {
             viewModel.insert(note);
             Toast.makeText(this, "" + note.getNotes() + " Inserted", Toast.LENGTH_LONG).show();
         }
+        inputText.setText("");
     }
 }

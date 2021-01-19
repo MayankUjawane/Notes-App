@@ -21,20 +21,29 @@ public class NoteRepository {
     }
 
     void insert(Note note){
-        NoteRoomDatabase.databaseWriteExecutor.execute(() -> {
-            mNoteDao.insert(note);
+        NoteRoomDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mNoteDao.insert(note);
+            }
         });
     }
 
     void delete(Note note){
-        NoteRoomDatabase.databaseWriteExecutor.execute(() -> {
+        NoteRoomDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
                 mNoteDao.delete(note);
+            }
         });
     }
 
     void deleteAll(){
-        NoteRoomDatabase.databaseWriteExecutor.execute(() -> {
-            mNoteDao.deleteAll();
+        NoteRoomDatabase.databaseWriteExecutor.execute(new Runnable() {
+            @Override
+            public void run() {
+                mNoteDao.deleteAll();
+            }
         });
     }
 
